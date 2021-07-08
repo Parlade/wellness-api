@@ -72,20 +72,23 @@ const getAllInvoices = (req: Request, res: Response) => {
   
 const getInvoiceById = async (req: Request, res: Response) => {
     const queryInvoice = await Invoice.findById(req.params.id);
-    res.status(200).send({
-        invoice: queryInvoice,
-    });
+    res.status(200).send(
+        queryInvoice,
+    );
+};
+
+const createInvoice = async (req: Request, res: Response) => {
+  const { date, hour, consumption, price, costPerHour } = req.body;
+  const invoice = await Invoice.create({ date, hour, consumption, price, costPerHour }, {new: true});
+  res.status(200).send(invoice);
 };
 
 const updateInvoiceById = async (req: Request, res: Response) => {
     // desestructurado para no tener que repetir
     const { date, hour, consumption, price, costPerHour } = req.body;
     const invoiceUpdated = await Invoice.findOneAndUpdate({_id: req.params.id}, { date, hour, consumption, price, costPerHour }, {new: true});
-    res.status(200).send({
-      message: "Invoice updated",
-      invoice: invoiceUpdated
-    });
-  };
+    res.status(200).send(invoiceUpdated);
+};
   
 const deleteInvoiceById = async (req: Request, res: Response) => {
     await Invoice.findOneAndDelete({_id: req.params.id});
@@ -96,4 +99,4 @@ const deleteInvoiceById = async (req: Request, res: Response) => {
   
 
 
-export { uploadInvoices, getAllInvoices, getInvoiceById, updateInvoiceById, deleteInvoiceById }
+export { uploadInvoices, getAllInvoices, getInvoiceById, updateInvoiceById, deleteInvoiceById, createInvoice }

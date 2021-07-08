@@ -1,1 +1,1 @@
-export { uploadInvoices, getAllInvoices, getInvoiceById, updateInvoiceById, deleteInvoiceById } from "./invoice.controller"
+export { uploadInvoices, getAllInvoices, getInvoiceById, updateInvoiceById, deleteInvoiceById, createInvoice } from "./invoice.controller"
